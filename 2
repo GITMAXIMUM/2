@@ -309,3 +309,43 @@
  "nbformat": 4,
  "nbformat_minor": 4
 }
+import time
+import matplotlib.pyplot as plt
+
+def find_element(items, value):
+    """Linear search for a value in a list of items
+        args:
+            - items: unsorted list of items
+            - value: searched value
+        return:
+            - index of value or -1 if not in list
+    """
+    for i in range(len(items)):
+        if items[i] == value:
+            return i
+    return -1
+
+# Generate input sizes to test the function
+input_sizes = [10, 100, 1000, 10000, 100000]
+
+# Define an empty list to store the execution times
+execution_times = []
+
+# Test the function with each input size
+for size in input_sizes:
+    # Generate a list of random integers between 0 and size-1
+    items = list(range(size))
+    
+    # Search for a non-existing element and time the function
+    start_time = time.time()
+    index = find_element(items, size)
+    end_time = time.time()
+    
+    # Append the execution time to the list
+    execution_times.append(end_time - start_time)
+
+# Plot the execution times against the input sizes
+plt.plot(input_sizes, execution_times)
+plt.xlabel('Input size')
+plt.ylabel('Execution time (seconds)')
+plt.show()
