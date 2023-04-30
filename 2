@@ -349,3 +349,59 @@ plt.plot(input_sizes, execution_times)
 plt.xlabel('Input size')
 plt.ylabel('Execution time (seconds)')
 plt.show()
+
+The time complexity of searching for a value in an unsorted list using a linear search algorithm is O(n), where n is the number of elements in the list. This means that the worst-case scenario for finding a value in an unsorted list is that you have to look at every element in the list to find the value.
+
+The Big O notation for a linear search algorithm is O(n) because the time it takes to search for a value increases linearly with the number of elements in the list. As the size of the list grows, the time it takes to search for a value also grows at the same rate.
+
+import time
+import random
+import matplotlib.pyplot as plt
+
+def find_sorted(items, value):
+    """Binary search for a value in a sorted list of items
+        args:
+            - items: sorted list of items
+            - value: searched value
+        return:
+            - index of value or -1 if not in list
+    """
+    left = 0
+    right = len(items) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if items[mid] == value:
+            return mid
+        elif items[mid] < value:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return -1
+
+# Generate input sizes to test the function
+input_sizes = [10, 100, 1000, 10000, 100000]
+
+# Define an empty list to store the execution times
+execution_times = []
+
+# Test the function with each input size
+for size in input_sizes:
+    # Generate a sorted list of random integers between 0 and size-1
+    items = sorted(list(range(size)))
+    
+    # Search for a non-existing element and time the function
+    value = size + 1
+    start_time = time.time()
+    index = find_sorted(items, value)
+    end_time = time.time()
+    
+    # Append the execution time to the list
+    execution_times.append(end_time - start_time)
+
+# Plot the execution times against the input sizes
+plt.plot(input_sizes, execution_times)
+plt.xlabel('Input size')
+plt.ylabel('Execution time (seconds)')
+plt.show()
